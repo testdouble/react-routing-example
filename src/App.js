@@ -36,7 +36,7 @@ export default function App() {
 const Header = () => {
   const { cart } = useAppState();
   return (
-    <header className="flex bg-gray-900 justify-between align-middle p-3">
+    <header className="flex bg-gray-900 justify-between align-middle p-2 sm:p-3">
       <Link to="/">
         <img src={logo} className="h-10" alt="logo" />
       </Link>
@@ -88,6 +88,27 @@ function ProductCard({ product }) {
   );
 }
 
+const BackLink = (props) => {
+  return (
+    <Link
+      to="../"
+      className="inline-block mt-4 px-4 py-3 ml-4 bg-blue-400 rounded text-gray-100 font-semibold uppercase shadow-lg sm:text-sm sm:font-bold hover:bg-blue-500 active:bg-blue-600"
+      {...props}
+    >
+      &lt; Back
+    </Link>
+  );
+};
+
+function SuccessButton(props) {
+  return (
+    <button
+      className="rounded px-4 py-3 bg-green-400 text-gray-100 uppercase font-semibold shadow-lg sm:px-3 sm:text-sm sm:font-bold hover:bg-green-500 active:bg-green-600"
+      {...props}
+    />
+  );
+}
+
 function ProductDetailPage() {
   const { id } = useParams();
   const { products } = useAppState();
@@ -98,22 +119,28 @@ function ProductDetailPage() {
   }
 
   return (
-    <div className="bg-white py-6">
-      <Link
-        to="/"
-        className="inline-block mx-4 px-4 py-2 bg-blue-400 rounded text-gray-100 font-semibold uppercase hover:bg-blue-500"
-      >
-        &lt;- Back
-      </Link>
-      <div className="mt-4 flex justify-evenly">
-        <div>
-          <img src={product.imgSrc} alt={product.title} className="h-64" />
+    <div className="bg-white pb-6">
+      <BackLink />
+      <div className="mt-4 flex justify-evenly flex-col sm:flex-row">
+        <div className="p-2">
+          <img
+            src={product.imgSrc}
+            alt={product.title}
+            className="h-64 sm:h-32 xl:h-64"
+          />
         </div>
-        <div>
-          <h1 className="text-4xl text-gray-800">{product.title}</h1>
-          <div className="text-gray-800 text-lg">{product.description}</div>
-          <div className="mt-3 text-gray-800 text-lg">
+        <div className="px-6 mt-4 sm:mt-0 sm:ml-8 md:max-w-lg lg:max-w-xl">
+          <h1 className="text-4xl text-gray-800 sm:text-2xl leading-tight tracking-tight">
+            {product.title}
+          </h1>
+          <div className="text-gray-800 text-lg mt-4 leading-snug">
+            {product.description}
+          </div>
+          <div className="mt-4 text-gray-800 text-lg">
             Price: <span className="font-bold">{product.price.formatted}</span>
+          </div>
+          <div className="mt-4">
+            <SuccessButton>Add to Cart</SuccessButton>
           </div>
         </div>
       </div>
