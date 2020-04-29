@@ -1,16 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import logo from "./logo.svg";
-import "./App.css";
 
-function App() {
+export default function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <Link to="/profile">Profile</Link>
-        </header>
+        <Header />
         <Switch>
           <Route path="/product/:id">
             <ProductDetailPage />
@@ -18,8 +14,8 @@ function App() {
           <Route path="/profile">
             <ProfilePage />
           </Route>
-          <Route path="/profile">
-            <ProfilePage />
+          <Route path="/profile/edit">
+            <EditProfilePage />
           </Route>
           <Route path="/">
             <ProductsPage />
@@ -30,7 +26,21 @@ function App() {
   );
 }
 
-export default App;
+const NavLink = (props) => (
+  <Link className="p-2 ml-auto text-blue-200 text-lg" {...props} />
+);
+
+const Header = () => {
+  return (
+    <header className="flex bg-gray-900 align-middle p-3">
+      <img src={logo} className="h-10" alt="logo" />
+      <h1 className="text-2xl p-2 ml-auto block text-blue-200 font-semibold tracking-wider uppercase">
+        Simple Store
+      </h1>
+      <NavLink to="/profile">Profile</NavLink>
+    </header>
+  );
+};
 
 function ProductsPage() {
   return <div>Main Products Page</div>;
@@ -42,4 +52,8 @@ function ProductDetailPage() {
 
 function ProfilePage() {
   return <div>Profile Page</div>;
+}
+
+function EditProfilePage() {
+  return <div>Edit Profile Page</div>;
 }
