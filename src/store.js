@@ -2,8 +2,13 @@ import React from "react";
 
 const StoreContext = React.createContext();
 
-const stateReducer = (state, action) => {
-  return state;
+const stateReducer = (state, [actionType, payload]) => {
+  switch (actionType) {
+    case "UPDATE_PROFILE":
+      return { ...state, profile: { name: payload } };
+    default:
+      return state;
+  }
 };
 
 export const StoreProvider = ({ children }) => {
