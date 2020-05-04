@@ -1,7 +1,7 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAppState } from "../store";
-import { SuccessButton, BackLink } from "../components";
+import { SuccessButton } from "../components";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -41,3 +41,14 @@ export default function ProductDetailPage() {
     </div>
   );
 }
+
+export const BackLink = (props) => {
+  return (
+    <Link
+      to="../"
+      className="inline-block mt-4 px-4 py-3 ml-4 bg-blue-400 rounded text-gray-100 font-semibold uppercase shadow-lg sm:text-sm sm:font-bold hover:bg-blue-500 active:bg-blue-600"
+    >
+      &lt; Back
+    </Link>
+  );
+};
