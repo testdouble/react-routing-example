@@ -12,7 +12,7 @@ export const Header = () => {
       </Link>
       <Link to="/">
         <h1 className="text-lg sm:text-2xl p-2 block text-blue-200 font-semibold tracking-wider uppercase">
-          Simple Store
+          Compy Product Store
         </h1>
       </Link>
       <div className="flex align-middle">
