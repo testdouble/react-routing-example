@@ -6,7 +6,7 @@ import { SuccessButton, BackLink } from "../components";
 export default function ProductDetailPage() {
   const { id } = useParams();
   const { products } = useAppState();
-  const product = products.find((p) => p.id == id);
+  const product = products.find((p) => p.id == id); // eslint-disable-line
 
   if (!product) {
     return <div>Product Not Found</div>;
