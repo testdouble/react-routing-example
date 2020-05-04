@@ -4,8 +4,6 @@ import { useAppState } from "../store";
 import useQueryStringSync from "../useQueryStringSync";
 
 export default function ProductsPage() {
-  const renderCounter = React.useRef(0);
-  renderCounter.current = renderCounter.current + 1;
   const { products, categories } = useAppState();
   const [queryParams, setQueryParams] = useQueryStringSync();
   const [minPrice, setMinPrice] = React.useState(queryParams.minPrice);
