@@ -1,15 +1,18 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useAppState } from "../store";
+import useQueryStringSync from "../useQueryStringSync";
 
 export default function ProductsPage() {
+  const renderCounter = React.useRef(0);
+  renderCounter.current = renderCounter.current + 1;
   const { products, categories } = useAppState();
-  const [minPrice, setMinPrice] = React.useState();
-  const [maxPrice, setMaxPrice] = React.useState();
-
+  const [queryParams, setQueryParams] = useQueryStringSync();
+  const [minPrice, setMinPrice] = React.useState(queryParams.minPrice);
+  const [maxPrice, setMaxPrice] = React.useState(queryParams.maxPrice);
   const [filteredCategories, dispatch] = React.useReducer(
     categoryFilterReducer,
-    new Set()
+    new Set(queryParams.categories || [])
   );
 
   const filteredProducts = products.filter((product) => {
@@ -28,6 +31,19 @@ export default function ProductsPage() {
     return true;
   });
 
+  React.useEffect(() => {
+    const nextParams = {
+      categories: [...filteredCategories],
+    };
+    if (minPrice != null) {
+      nextParams.minPrice = minPrice;
+    }
+    if (maxPrice != null) {
+      nextParams.maxPrice = maxPrice;
+    }
+    setQueryParams(nextParams);
+  }, [setQueryParams, minPrice, maxPrice, filteredCategories]);
+
   return (
     <div className="mt-4">
       <div className="ml-4">
@@ -41,7 +57,7 @@ export default function ProductsPage() {
                   className="ml-1"
                   type="checkbox"
                   checked={filteredCategories.has(category)}
-                  onChange={() => {
+                  onChange={(evt) => {
                     dispatch(["TOGGLE", category]);
                   }}
                 />
