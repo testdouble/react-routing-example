@@ -10,11 +10,11 @@ const useQueryStringSync = () => {
   );
 
   const setUrlParams = React.useCallback((rawParams) => {
-    const newurl = `${window.location.protocol}//${window.location.host}${
-      window.location.pathname
-    }?${qs.stringify(rawParams)}`;
-
-    window.history.pushState({ path: newurl }, "", newurl);
+    const queryString = qs.stringify(rawParams);
+    if (queryString !== window.location.search) {
+      const newurl = `${window.location.pathname}?${queryString}`;
+      window.history.replaceState({ path: newurl }, "", newurl);
+    }
   }, []);
 
   return [urlParams, setUrlParams];
