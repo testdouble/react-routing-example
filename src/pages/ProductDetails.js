@@ -45,7 +45,7 @@ export default function ProductDetailPage() {
 export const BackLink = (props) => {
   return (
     <Link
-      to="../"
+      to="/"
       className="inline-block mt-4 px-4 py-3 ml-4 bg-blue-400 rounded text-gray-100 font-semibold uppercase shadow-lg sm:text-sm sm:font-bold hover:bg-blue-500 active:bg-blue-600"
     >
       &lt; Back
