@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory, useLocation } from "react-router-dom";
 import { useAppState } from "../store";
 import { SuccessButton } from "../components";
 
@@ -43,12 +43,22 @@ export default function ProductDetailPage() {
 }
 
 export const BackLink = (props) => {
+  const history = useHistory();
+  const location = useLocation();
+  const handleClick = () => {
+    if (location?.state?.returnUrl) {
+      history.push(location.state.returnUrl);
+    } else {
+      history.push("/");
+    }
+  };
+
   return (
-    <Link
-      to="/"
+    <button
+      onClick={handleClick}
       className="inline-block mt-4 px-4 py-3 ml-4 bg-blue-400 rounded text-gray-100 font-semibold uppercase shadow-lg sm:text-sm sm:font-bold hover:bg-blue-500 active:bg-blue-600"
     >
       &lt; Back
-    </Link>
+    </button>
   );
 };

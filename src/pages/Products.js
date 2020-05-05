@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAppState } from "../store";
 import useQueryStringSync from "../useQueryStringSync";
 
@@ -115,8 +115,16 @@ const categoryFilterReducer = (filteredCategoriesSet, [action, payload]) => {
 };
 
 function ProductCard({ product }) {
+  const location = useLocation();
   return (
-    <Link to={`/products/${product.id}`}>
+    <Link
+      to={{
+        pathname: `/products/${product.id}`,
+        state: {
+          returnUrl: `${location.pathname}${location.search}`,
+        },
+      }}
+    >
       <div className="m-2 rounded border border-gray-200 shadow-lg bg-white">
         <div className="flex justify-center pt-4">
           <img
